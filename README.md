@@ -32,6 +32,11 @@ licences.
 - [xv6-riscv](xv6-riscv) and also [book](xv6-riscv-book) - **[RISC-V, ANSI C]** See [home page](https://pdos.csail.mit.edu/6.828/2020/xv6.html).
 - [xv7](xv7) - **[x86, ANSI C]** Implementation of Demand Paging and Swapping in xv6. [Repo URL](https://github.com/anandthegreat/xv7).
 
+### RISC-V
+
+### Other
+
+- [Plan9](plan9) Needs no introduction; obtained [here](https://github.com/akavel/plan9).
 
 ## Custom additions
 
