@@ -1,0 +1,198 @@
+.\" UNIX V7 source code: see /COPYRIGHT or www.tuhs.org for details.
+.TH FSCK 1M
+.SH NAME
+fsck \- file system consistency check and interactive repair
+.SH SYNOPSIS
+.B /etc/fsck
+[ option ] ...
+[ filesystem ] ...
+] ...
+.SH DESCRIPTION
+.I  Fsck
+audits and interactively repairs inconsistent conditions for
+the named
+.IR filesystems.
+If a file system is consistent then the number of files, number of blocks
+used, and number of blocks free are reported.
+If the file system is inconsistent the operator is prompted for concurrence
+before each correction is attempted.
+Most corrections lose data;
+all losses are reported.
+The default action for each correction
+is to wait for the operator to respond
+`yes' or `no'.
+Without write permission 
+.I fsck
+defaults to
+.BR "\-n " action.
+.PP
+These options are recognized:
+.TP
+.B  \-y
+Assume a yes response to all questions.
+.TP
+.B  \-n
+Assume a no response to all questions.
+.TP
+.BI \-s X
+Ignore the actual free list and (unconditionally) construct a new
+one by rewriting the super-block of the file system.  
+The file system should be unmounted while this is done,
+or extreme care should be taken that the system is quiescent
+and that it is rebooted immediately afterwards.
+This precaution is necessary so that the old, bad, in-core copy
+of the superblock will not continue to be used, or written on the file system.
+.IP
+The free list is created with optimal interleaving
+according to the specification
+.IR X :
+.RS
+.IP
+.B \-s3
+optimal for RP03
+.br
+.B \-s4
+optimal for RP04, RP05, RP06
+.br
+.BI \-s c : s
+space free blocks
+.I s
+blocks apart in cylinders of
+.I c
+blocks each.
+.RE
+.IP
+If
+.I X
+is not given,
+the values used when the filesystem was created
+are used.
+If these values were not specified, then 
+.IR c =400,
+.IR s =9
+is assumed.
+.TP
+.BI \-S X
+Conditionally reconstruct the free list.
+This option
+is like
+.BR \-s X
+except that the free list is rebuilt only
+if there were no discrepancies discovered in the
+file system.
+It is useful for forcing free list reorganization
+on uncontaminated file systems.
+.B \-S
+forces
+.BR \-n .
+.TP
+.B \-t
+If
+.I fsck
+cannot obtain enough memory to keep its tables,
+it uses a scratch files.
+If the 
+.B -t
+option is
+specified, the file named in the next argument
+is used as the scratch file.
+Without the
+.B \-t
+option,
+.I fsck
+prompts if it needs a
+scratch file.
+The file should not be on the
+file system being checked, and if it is not
+a special file or did not already exist, it is
+removed when
+.I fsck
+completes.
+.PP
+If no filesystems are given to 
+.I fsck
+then a default list of file systems is read from
+the file
+.BR /etc/checklist .
+.PP
+.ne 10
+Inconsistencies checked are as follows:
+.TP
+1.
+Blocks claimed by more than one inode or the free list.
+.TP
+2.
+Blocks claimed by an inode or the free list outside the range of the file system.
+.TP
+3.
+Incorrect link counts.
+.TP
+4.
+Size checks:
+.RS
+Incorrect number of blocks in file.
+.br
+Directory size not a multiple of 16 bytes.
+.RE
+.TP
+5.
+Bad inode format.
+.TP
+6.
+Blocks not accounted for anywhere.
+.TP
+7.
+Directory checks:
+.RS
+File pointing to unallocated inode.
+.br
+Inode number out of range.
+.RE
+.TP
+8.
+Super Block checks:
+.RS
+More than 65536 inodes.
+.br
+More blocks for inodes than there are in the file system.
+.RE
+.TP
+9.
+Bad free block list format.
+.TP
+10.
+Total free block and/or free inode count incorrect.
+.PP
+Orphaned files and directories (allocated but unreferenced) are,
+with the operator's concurrence, reconnected by
+placing them in the "lost+found" directory.
+The name assigned is the inode number. The only restriction
+is that the directory "lost+found" must preexist
+in the root of the filesystem being checked and
+must have empty slots in which entries can be made.
+This is accomplished by making "lost+found", copying
+a number of files to the directory, and then removing them
+(before
+.I
+fsck
+is executed).
+.PP
+Checking the raw device is almost always faster.
+.SH FILES
+/etc/checklist
+contains default list of file systems to check.
+.SH "SEE ALSO"
+dcheck(1), icheck(1),
+checklist(5), fs(5), crash(8)
+.SH BUGS
+Inode numbers for
+.B .
+and
+.B ..
+in each directory should be checked for validity.
+.br
+The
+.B \-b
+option of
+.IR icheck (1)
+should be available.

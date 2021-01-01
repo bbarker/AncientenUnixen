@@ -1,0 +1,50 @@
+Included here are overlaid binaries for version 3.6 of vi.
+This is the current production version as of January 1981 and has
+been in use with no problems for several months on our Vax and 11/70.
+
+Two binaries are included: ex.70 and ex.40.  The only difference is that
+ex.70 is compiled split I/D and with only two overlays, while ex.40
+does not use split I/D and has four overlays.  You should use ex.70 if
+your 11 has split I/D (a 45, 70, or 44) and use ex.40 otherwise.
+
+If you choose not to run overlays, you will have to settle for version
+2.13 of ex, and you will have to have split I/D.  There are binaries
+included for standard v6 and v7 systems which look in /usr/lib for
+the needed extra files instead of /usr/ucb/lib.  (If in doubt about
+where a given binary looks, run strings on it and grep for "/".)
+
+To install ex, you should do the following steps:
+
+	1) This heirarchy should be under /usr/ucb.  You will need a
+	   /usr/ucb/lib even if you decide to mount the heirarchy
+	   elsewhere, since that path is compiled into the ex binaries.
+	
+	2) Install ex.70 or ex.40 in any convenient bin directory,
+	   such as /usr/bin or /usr/ucb/bin, mode 1755 or 1711, as ex.
+
+	3) Install termcap in /etc/termcap.
+
+	4) Install ex3.6strings mode 644 in /usr/ucb/lib.
+
+	5) Install ex3.6recover and ex3.6preserve in /usr/ucb/lib,
+	   owned by root, mode 4711 (suid root).
+
+	6) Edit /etc/rc to call
+		/usr/ucb/lib/ex3.6preserve -a
+	   BEFORE /tmp is cleared when the system is rebooted.
+	   This will find any dead editor temporaries (from people
+	   who were in the editor when the system crashed) and
+	   preserve them.  They are sent mail telling them what happened.
+
+	7) Make the directory /usr/ucb/preserve.
+
+	8) Make some links to ex called vi, view, edit, and e.
+	   The links vi, view, and edit are functionally different than
+	   ex.  The link e is the same as ex and is a matter of
+	   local preference.
+
+If you have problems with these binaries give me a call at the
+above number.
+
+	Mark Horton
+	1/20/81

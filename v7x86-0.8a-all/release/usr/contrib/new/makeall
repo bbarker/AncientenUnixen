@@ -1,0 +1,6 @@
+list="cdcat chroot fatfs ptdisk"
+
+for i in $list
+do
+	(echo "==== $i ===="; cd $i; make cp)
+done

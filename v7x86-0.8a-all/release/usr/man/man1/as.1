@@ -1,0 +1,37 @@
+.\" UNIX V7 source code: see /COPYRIGHT or www.tuhs.org for details.
+.TH AS 1  x86
+.SH NAME
+as \- assembler
+.SH SYNOPSIS
+.B as
+[
+.B \-o
+objfile
+] file
+.SH DESCRIPTION
+.I As
+assembles the named file.
+The output of the assembly is left on the file
+.IR objfile ;
+if that is omitted,
+.B a.out
+is used.
+It is executable if no errors occurred
+during the assembly,
+and if there were no unresolved external references.
+.SH FILES
+a.out		object
+.SH "SEE ALSO"
+ld(1),
+nm(1),
+adb(1),
+a.out(5)
+.br
+.I "UNIX Assembler Manual"
+by D. M. Ritchie
+.br
+.I "V7/x86 Assembler Manual"
+.SH DIAGNOSTICS
+Diagnostics are intended to be self-explanatory.
+.SH BUGS
+Inconsistent input is not always caught.

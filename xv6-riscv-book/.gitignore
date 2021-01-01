@@ -1,0 +1,14 @@
+*.pdf
+*.*~
+*.ps
+latex.out/
+xv6-riscv-src
+*.aux
+*.idx
+*.ilg
+*.ind
+*.log
+*.toc
+*.bbl
+*.blg
+*.out

@@ -1,0 +1,90 @@
+INSTALL: V7/x86
+
+
+OVERVIEW
+
+Installing V7/x86 is a two-step process:
+
+    *  Create an fdisk-style partition for V7/x86 on the hard disk.
+
+    *  Download the V7/x86 CD image and burn it onto a CD; then
+       boot and use the menu-based ``install'' program.
+
+The remainder of this document simply expands on this process and
+deals with some alternatives.
+
+NOTE: You can also try out V7/x86 without actually installing it.
+See the README document for more information.
+
+
+HARDWARE REQUIREMENTS
+
+V7/x86 needs a PC system with --
+
+    *  An 80486, P5 or P6 class CPU
+
+    *  At least 16M of RAM
+
+    *  An ATA (IDE) hard drive with 146M or more of free space
+
+    *  An ATAPI CDROM drive (for the installation)
+
+If you have an old, spare PC, this may well be suitable.
+
+NOTE: ATA and ATAPI drives are PC ``standard equipment'': SCSI
+peripherals are not presently supported.  Currently the assumption
+is that hard drives are attached to the first, and CD drives to the
+second, of the usual two PC disk controllers.
+
+
+CREATING A DISK PARTITION
+
+The install utility expects to install to a predefined fdisk-style
+hard disk partition.  The V7/x86 partition type is 0x72 (114 decimal).
+The partition should be at least 297000 sectors (146M) in size, and
+around 300M is probably ample.
+
+It should be possible to create the partition using any fdisk-compatible
+utility that allows you to specify the partition type.  For instance,
+FreeBSD and Solaris both have suitable utilities actually called
+``fdisk''.
+
+Alternatively, you can create the partition from within V7/x86
+itself.  Boot from the CD, and press ``Q'' to quit from the install
+utility to the command line.  The command is ``ptdisk''.  You can
+do a
+
+    man ptdisk
+
+to get usage information.
+
+IMPORTANT: If you do create the partition within V7/x86, be sure
+to reboot before proceeding with the installation, to ensure that
+the hard disk driver has read the changed partition table.
+
+
+INSTALLING FROM CD
+
+Download the .iso CD image file, uncompress it, and burn it onto a
+CD.  Then boot the target machine and, if all goes well, you should
+find yourself in the ``install'' program.
+
+Once there, you need select only source and target drives, and the
+system should be installed on the prepared disk partition.
+
+
+TAKING IT FROM HERE
+
+Once the installation completes successfully, it should be possible
+to remove the CD, reset the machine and boot into V7/x86 itself.
+
+You can log in as "guest" (no password) and then use the su(1)
+command to become root (password "password").
+
+NOTE: If the hard disk has multiple fdisk partitions, and there is
+no boot manager installed, you may have to flag the V7/x86 partition
+as active or bootable using an fdisk-compatible utility.
+
+
+Robert Nordier
+www.nordier.com

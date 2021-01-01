@@ -1,0 +1,158 @@
+
+		A tour through termcap, termlib, & curses
+
+			Mark Horton
+			U.C. Berkeley
+
+			CSVAX.mark@Berkeley
+			ucbvax!mark
+
+			(415) 642-7780
+
+			Computer Science Division
+			Evans Hall
+			University of California
+			Berkeley, CA 94720
+
+
+
+		Termcap
+
+	Supports about 150 terminals
+	Fill-in-the-blank descriptions
+
+	Example: Microterm ACT IV
+	m4|microterm|act4|activ|microterm act 4:\
+		:am:bs:cd=^_:ce=^^:cl=^L:\
+		:cm=^T%.%.:co#80:li#24:\
+		:nd=^X:up=^Z:ho=^]:
+
+	Says that m4, microterm, act4, activ, and microterm act 4
+	are all synonyms for this terminal; that it has "automatic
+	margins" (moving off right edge wraps to left edge next line),
+	control H backspaces, control _ clears to end of display,
+	ctrl ^ clears to end of line, ctrl L clears the screen,
+	the cursor addressing sequence is ctrl T followed by the
+	two coordinates as ascii values, there are 80 columns and
+	24 lines, nondestructive space is cntl X, ctrl Z moves the
+	cursor up a line, and ctrl ] homes to the upper left corner.
+
+
+		Information in Termcap
+
+	Size of screen
+	Which capabilities exist
+	Character strings to use capabilities:
+		clear screen, clreol, clreos,
+		local motions, home, backtab,
+		insert/delete line/character
+		...
+	Cursor addressing
+	Padding on strings
+	Stty bit padding needed (cr, nl, bs, ff, tab) in ms
+	Mode change:
+		begin/end program
+			  keypad
+			  standout
+			  underline
+			  alternate character set
+			  screen editor
+			  insert character
+	Initialization at login
+		(set tabs, modes, etc)
+	Flag info:
+		automatic margins
+		backspace with ^H
+		hard copy
+		overstrike
+		hardware tabs
+		brain damage
+	Function keys:
+		f0-f9
+		home
+		backspace
+		arrow keys
+		which keys exist
+		what they transmit
+		how they are labelled
+
+
+		Termcap library
+	
+	% cc demo.o -ltermcap		(or -ltermlib)
+
+	Example: clear screen
+
+	main()
+	{
+		char *term = getenv("TERM");
+		char tbuf[1024];
+		char *clear;
+		char clbuf[20];
+		char *clbp = clbuf;
+
+		if (tgetent(tbuf, term) != 1)
+			exit(1);
+		clear = tgetstr("cl", &clbp);
+		if (clear)
+			tputs(clear, tgetnum("li"), putchar);
+	}
+
+	The above example is simplified and will not work in all cases.
+	The full clear program appears later.
+
+
+
+
+		Cursor Motion
+	
+	Use the schema:
+
+		putpad(tgoto(CM, col, line));
+
+	Cursor codes understood by tgoto:
+	
+	%d	as in printf, 0 origin
+	%2	like %2d
+	%3	like %3d
+	%.	like %c
+	%+x	adds x to value, then %.
+	%>xy	if value > x adds y, no output.
+	%r	reverses order of line and column, no output
+	%i	increments line/column (for 1 origin)
+	%%	gives a single %
+	%n	exclusive or row and column with 0140 (DM2500)
+	%B	BCD (16*(x/10)) + (x%10), no output.
+	%D	Reverse coding (x-2*(x%16)), no output. (Delta Data).
+
+
+		Curses Screen Optimization Library
+	
+	High level interface:
+	   a)	"Optimally" move cursor from (x,y) to (a,b)
+	   b)	"Optimally" update the screen to make
+		it look like a given array.
+	   c)	Multiple windows
+	   d)	Handles details of termlib
+	   e)	Standout mode
+	
+	Interface less likely to change as termcap is improved.
+
+	Does not use insert/delete line/character, otherwise
+	as smart as vi.
+
+
+
+		Curses Functions
+
+	initscr();				Start up
+	endwin();				Clean up
+	move(y, x);				Move cursor internally.
+	addch(ch);				internal putchar(ch)
+	mvaddch(y, x, ch);			... combined.
+	printw("...", args);			internal printf
+	mvprintw(y, x, "...", args);		... combined.
+	refresh();				sync screen
+	mvcur(from_y, from_x, to_y, to_x);	low level motion.
+
+	Many other high level routines.

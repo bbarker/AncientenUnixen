@@ -1,0 +1,131 @@
+: This script makes and installs everything that can be made
+: and installed.  Seven working commands are needed to start
+: things off: ar, as, cc, cp, echo, ld, and sh -- where "cc"
+: includes the C compiler itself.
+
+echo "---- stage 1: building tools -----"
+
+echo "== libc =="
+cd /usr/src/libc
+as -o crt0.o csu/crt0.s; cp crt0.o /lib
+./compall; ./mklib; cp libc.a /lib
+
+echo "== as =="
+cd /usr/src/cmd/as
+cc -O -DV7 -DV7OBJ -c *.c
+cc -s -o as *.o
+cp as /bin
+
+list="ld cc ar basename mv rm echo"
+echo "== $list cp =="
+cd /usr/src/cmd
+for i in $list
+do
+	cc -s -O -o $i $i.c; cp $i /bin
+done
+cc -s -O -o cp cp.c; cp cp /tmp/$$.tmp; mv /tmp/$$.tmp /bin/cp
+rm $list cp
+
+cd /usr/src/libc
+rm libc.a *.o
+cd /usr/src/cmd/as
+rm as *.o
+
+echo "== yacc =="
+cd /usr/src/cmd/yacc
+cc -O -c *.c
+cc -s -o yacc y?.o
+cp yacc /bin
+rm yacc *.o
+
+echo "== make =="
+cd /usr/src/cmd/make
+yacc gram.y
+mv y.tab.c gram.c
+cc -O -c *.c
+cc -s -o make ident.o main.o doname.o misc.o files.o dosys.o gram.o
+cp make /bin
+rm make gram.c *.o
+
+echo "== sh =="
+cd /usr/src/cmd/sh
+make cp
+
+echo "== lex =="
+cd /usr/src/cmd/lex
+make cp
+
+echo "---- stage 2: building /usr/src -----"
+
+echo "== libc =="
+cd /usr/src/libc
+as -o crt0.o csu/crt0.s; cp crt0.o /lib
+as -o mcrt0.o csu/mcrt0.s; cp mcrt0.o /lib
+./compall; ./mklib; cp libc.a /lib
+rm libc.a *.o
+
+echo "== libm =="
+cd /usr/src/libm
+./compall; ./mklib; cp libm.a /lib
+rm libm.a *.o
+
+echo "== libplot =="
+cd /usr/src/libplot
+make cp
+rm lib*.a
+
+echo "== libdbm =="
+cd /usr/src/libdbm
+./compall; ./mklib; cp libdbm.a /usr/lib
+rm libdbm.a
+
+echo "== libmp =="
+cd /usr/src/libmp
+./compall; ./mklib; cp libmp.a /usr/lib
+rm libmp.a *.o
+
+echo "== games =="
+cd /usr/src/games
+for i in arithmetic backgammon fish fortune hangman quiz wump
+do
+	cc -O -o $i $i.c; cp $i /usr/games; rm $i
+done
+
+echo "== cmd =="
+cd /usr/src/cmd
+./makeall
+
+echo "== troff/font =="
+cd /usr/src/cmd/troff/font
+make cp
+
+echo "== troff/term =="
+cd /usr/src/cmd/troff/term
+make cp
+
+echo "---- stage 3: building /usr/contrib -----"
+
+echo "== compress =="
+cd /usr/contrib/compress
+make cp
+
+echo "== ucb =="
+cd /usr/contrib/ucb
+./makeall
+
+echo "== new =="
+cd /usr/contrib/new
+./makeall
+
+echo "---- stage 4: building /usr/sys -----"
+
+echo "== kernel =="
+cd /usr/sys/conf
+make all allsystems
+cp hd0unix hd1unix md0unix /
+make clean
+
+echo "== boot =="
+cd /usr/boot
+rm -f mbr pcuboot
+make all

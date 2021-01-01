@@ -1,0 +1,36 @@
+.\" V7/x86 source code: see www.nordier.com/v7x86 for details.
+.\" Copyright (c) 2007 Robert Nordier.  All rights reserved.
+.TH FD 4 
+.SH NAME
+fd \- floppy disk drive
+.SH DESCRIPTION
+This driver provides access to standard PC architecture floppy
+disk drives.
+.PP
+The
+.I fd
+files
+access the disk via the system's normal
+buffering mechanism
+and may be read and written without regard to
+physical disk records.
+.PP
+There is also a `raw' interface
+which provides for direct transmission between the disk
+and the user's read or write buffer.
+A single read or write call results in exactly one I/O operation
+and therefore raw I/O is considerably more efficient when
+many words are transmitted.
+The names of the raw FD files begin with
+.IR rfd .
+In raw I/O counts should be a multiple of 512 bytes
+(a disk block).
+Likewise
+.I lseek
+calls should specify a multiple of 512 bytes.
+.SH FILES
+/dev/fd?, /dev/rfd?
+.SH BUGS
+Only 1.44M drives and media are supported.
+.PP
+There is presently no provision for formatting disks.

@@ -1,0 +1,66 @@
+.\" V7/x86 source code: see www.nordier.com/v7x86 for details.
+.\" Copyright (c) 2007 Robert Nordier.  All rights reserved.
+.TH HD 4 
+.SH NAME
+hd \- ATA hard drive
+.SH DESCRIPTION
+The octal representation of the minor device number is encoded
+.IR dsp ,
+where
+.I d
+is the physical drive number,
+.I s
+indicates the disk slice (one of the four ``fdisk partitions''
+into which a PC hard disk may be divided),
+and
+.I p
+selects a pseudodisk (subsection) within that drive and slice.
+Disk slices are encoded as follows:
+.nf
+.PP
+	slice	comment
+	0		whole disk
+	1		slice 1
+	2		slice 2
+	3		slice 3
+	4		slice 4
+	5		3rd UNIX slice
+	6		2nd UNIX slice
+	7		1st UNIX slice
+.fi
+.PP
+Thus minor device number 0164 refers to pseudodisk 4 on the
+second UNIX slice of physical drive 1.
+.PP
+For pseudodisks, the convention is suggested that 0 be
+used for the root, 1 for swap, and 2 to refer to the whole
+disk, with others unrestricted.
+.PP
+The
+.I hd
+files
+access the disk via the system's normal
+buffering mechanism
+and may be read and written without regard to
+physical disk records.
+There is also a ``raw'' interface
+which provides for direct transmission between the disk
+and the user's read or write buffer.
+A single read or write call results in exactly one I/O operation
+and therefore raw I/O is considerably more efficient when
+many words are transmitted.
+The names of the raw HD files begin with
+.IR rhd .
+The same minor device considerations
+hold for the raw interface as for the normal interface.
+.PP
+In raw I/O, counts should be a multiple of 512 bytes
+(a disk block).
+Likewise
+.I lseek
+calls should specify a multiple of 512 bytes.
+.SH FILES
+/dev/hd?, /dev/rhd?
+.SH BUGS
+Pseudodisk definitions are hard-coded in the device driver
+source file.

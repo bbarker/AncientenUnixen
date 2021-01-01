@@ -1,0 +1,9 @@
+Wed Jan 28 14:09:18 PST 1981
+
+These files were used to make slides for a talk about termcap
+given at Usenix in January 1980.  Between these, the manual pages
+for termcap(3), termcap(5), and curses(3), the curses paper,
+and a few examples, it should be pretty clear how to use termcap
+at any level.
+
+	Mark Horton

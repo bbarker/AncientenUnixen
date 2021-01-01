@@ -1,0 +1,103 @@
+.\" V7/x86 source code: see www.nordier.com/v7x86 for details.
+.\" Copyright (c) 2006 Robert Nordier.  All rights reserved.
+.TH PTDISK 1
+.SH NAME
+ptdisk \- disk partition table maintainer
+.SH SYNOPSIS
+.B ptdisk
+[ options ]
+special
+[ cmd ... ]
+.SH DESCRIPTION
+.I Ptdisk
+creates and maintains an fdisk-compatible partition table on
+specified hard disk
+.IR special .
+The options are:
+.TP 9n
+.BI \-b file
+Use
+.I file
+for the boot code.
+.TP
+.B \-f
+Do not prompt for confirmation.
+.TP
+.BI \-g c,h,s
+Specify drive geometry, where `c,h,s' stands for
+cylinders, heads, and sectors.
+.TP
+.B \-z
+Display sizes in terms of kilobytes, megabytes and gigabytes rather
+than the number of blocks.
+.PP
+.I Cmd
+is one character from the set
+.B acdfiptx,
+selecting commands as follow:
+.TP
+.BI a \ partno
+Flag the
+.I partno
+partition as the active (bootable) partition.
+.TP
+.BI c \ sysid \ [ size ]
+Create a type
+.I sysid
+partition, either limited to
+.I size
+or taking up all available space.  The
+.I size
+argument may be specified in blocks, kilobytes, megabytes, or
+gigabytes: the latter three by appending a `k', `m', or `g'
+suffix.
+.TP
+.BI d \ partno
+Delete the
+.I partno
+partition.
+.TP
+.B f
+Display the free space available.
+.TP
+.B i
+Initialize the partition table by writing the
+designated or default boot code to sector zero of the disk
+and deleting any existing partition table entries.
+.TP
+.B p
+Print out (display) the partition table.
+.TP
+.BI t \ partno\ sysid
+Change the
+.I partno
+partition to type
+.IR sysid .
+.TP
+.B x
+Check the partition table.
+.PP
+Where no
+.I cmd
+is specified, the default action is to print out the
+partition table.
+.SH NOTES
+Partition types 1, 4, 5, 6, 7, 11, 12, 14, and 15 are among
+those used by MS-DOS/MS-Windows.
+Other common partition types are:
+.nf
+.PP
+        SYSID   DESCRIPTION
+        114     V7/x86
+        130     Linux
+        165     FreeBSD
+        166     OpenBSD
+        169     NetBSD
+        191     Solaris
+.fi
+.PP
+.SH FILES
+/usr/boot/mbr     default boot code
+.SH BUGS
+V7/x86 device drivers will generally not recognise partition
+table changes until the system is rebooted.

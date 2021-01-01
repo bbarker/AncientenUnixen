@@ -1,0 +1,19 @@
+ar rc LIB2 \
+bio.o \
+sr.o \
+sc.o \
+md.o \
+mem.o \
+mx1.o \
+mx2.o \
+sys.o \
+tty.o \
+dsort.o \
+pk0.o \
+pk1.o \
+pk2.o \
+pk3.o \
+fd.o \
+hd.o \
+cd.o \
+partab.o

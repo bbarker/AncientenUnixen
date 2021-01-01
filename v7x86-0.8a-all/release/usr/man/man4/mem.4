@@ -1,0 +1,27 @@
+.\" UNIX V7 source code: see /COPYRIGHT or www.tuhs.org for details.
+.\" Changes: Copyright (c) 2007 Robert Nordier. All rights reserved.
+.TH MEM 4 
+.SH NAME
+mem, kmem  \-  core memory
+.SH DESCRIPTION
+.I Mem
+is a special file that is an image of the core memory
+of the computer.
+It may be used, for example, to examine,
+and even to patch the system.
+.I Kmem
+is the same as 
+.I mem
+except that kernel virtual memory
+rather than physical memory is accessed.
+.PP
+Byte addresses
+are interpreted as memory addresses.
+References to non-existent locations return errors.
+.PP
+On a PC running V7/x86,
+per-process data for the current process
+begins at 0x7ff9d000.
+.SH FILES
+/dev/mem,
+/dev/kmem

@@ -1,0 +1,8 @@
+These are from the following:
+
+	compress	mod.sources volume 2
+
+	ucb		2.8BSD: csh, ex, curses, more,
+			        printenv, termcap, termlib,
+			        whereis
+			4.3BSD: factor, primes

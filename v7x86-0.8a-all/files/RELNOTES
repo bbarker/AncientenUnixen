@@ -1,0 +1,18 @@
+RELNOTES: V7/x86
+
+
+V7/x86 version 0.8a is the first public release of V7/x86.
+
+The following limitations apply to the distribution:
+
+    *  The source to the C compiler is not part of the distribution.
+       This is currently built separately as a component of a
+       modified version of the Amsterdam Compiler Kit (ACK).
+
+    *  The source for boot (the second stage bootstrap) is not part
+       of the distribution.  This is currently built separately
+       using a 16-bit version of pcc.
+
+
+Robert Nordier
+www.nordier.com

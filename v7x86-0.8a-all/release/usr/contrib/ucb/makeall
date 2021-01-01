@@ -1,0 +1,6 @@
+list="termcap termlib libcurses csh ex factor more primes printenv whereis"
+
+for i in $list
+do
+	(echo "==== $i ===="; cd $i; make cp)
+done

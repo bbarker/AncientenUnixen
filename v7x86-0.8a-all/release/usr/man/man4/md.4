@@ -1,0 +1,17 @@
+.\" V7/x86 source code: see www.nordier.com/v7x86 for details.
+.\" Copyright (c) 2007 Robert Nordier.  All rights reserved.
+.TH MD 4 
+.SH NAME
+md \- memory disk
+.SH DESCRIPTION
+This driver provides access to a memory-backed virtual disk.
+For this purpose, it uses memory reserved during the system
+initialization process (at present, the highest 2M of the
+memory mapped by the system is made use of).
+.PP
+The usual restrictions and considerations apply to the raw
+interface.
+.SH FILES
+/dev/md?, /dev/rmd?
+.SH "SEE ALSO"
+boot(8)

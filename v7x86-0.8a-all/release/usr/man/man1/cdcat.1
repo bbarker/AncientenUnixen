@@ -1,0 +1,26 @@
+.\" V7/x86 source code: see www.nordier.com/v7x86 for details.
+.\" Copyright (c) 2007 Robert Nordier.  All rights reserved.
+.TH CDCAT 1 
+.SH NAME
+cdcat  \-  CD-ROM directory lister and file printer
+.SH SYNOPSIS
+.B cdcat
+special [ path ]
+.SH DESCRIPTION
+.I Cdcat
+provides minimal support for accessing standard format (ISO 9660)
+CD-ROMs, which may optionally make use of Rock Ridge Interchange
+Protocol extensions.
+.PP
+Where
+.I path
+refers to a directory, the contents is listed; where
+.I path
+refers to a file, it is written on the standard output.
+If no
+.I path
+is specified, reference to the root directory is assumed.
+.SH FILES
+/dev/cd?
+.SH BUGS
+Ubiquitous but proprietary Joliet extensions are not supported.

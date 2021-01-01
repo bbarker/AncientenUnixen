@@ -1,0 +1,19 @@
+.\" V7/x86 source code: see www.nordier.com/v7x86 for details.
+.\" Copyright (c) 2007 Robert Nordier.  All rights reserved.
+.TH SR 4 
+.SH NAME
+sr \- serial interface
+.SH DESCRIPTION
+The
+.I sr
+driver provides an interface for asynchronous serial communications
+using the PC architecture standard NS8250/NS16550A UART.
+Speeds of
+50, 75, 110, 134.5, 150, 200, 300, 600, 1200, 1800, 2400,
+4800, 9600, 19200, or 38400 bps are supported.
+.SH FILES
+/dev/sr?
+.SH "SEE ALSO"
+tty(4)
+.SH BUGS
+There is no modem support.

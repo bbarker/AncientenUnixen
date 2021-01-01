@@ -1,0 +1,115 @@
+.\" UNIX V7 source code: see /COPYRIGHT or www.tuhs.org for details.
+.\" Changes: Copyright (c) 2007 Robert Nordier. All rights reserved.
+.TH BOOT 8
+.SH NAME
+boot \- startup procedures
+.SH DESCRIPTION
+A V7/x86 system is started by
+a two-stage process.
+The first is a primary bootstrap
+which is able to read in relatively small stand-alone programs;
+the second (called
+.IR boot )
+is used to read in the system itself.  Both bootstraps are
+16-bit x86 `real mode' programs in pure binary format.
+.PP
+The primary bootstrap must reside
+in the otherwise unused block zero of the boot device,
+or block zero of the V7/x86 partition, in the case of
+disks with `fdisk partitions'.
+This is loaded at address 0x7c00, either by the ROM
+BIOS directly or by code loaded by the BIOS from the
+master boot record of the disk.
+This program immediately loads the second stage bootstrap
+at address 0x8000.
+.PP
+The second stage
+actually brings in the system.
+When executed,
+.I boot
+types a prompt on the console as follows
+.IP " "
+BOOT [hd(0,0)unix]:
+.LP
+Then it
+reads from the console
+a device specification (see below) followed immediately by
+a pathname.
+.I Boot
+finds the corresponding file on the given device,
+loads that file into memory at address 0x10000,
+and passes control to it.
+.PP
+Information displayed
+between square brackets constitutes defaults obtainable by
+pressing the Enter key without further input.
+Where the pathname specifies
+a directory, the contents is listed.
+.PP
+Conventionally, the name of the current version of the system
+is `/unix'.
+Thus, the recipe is:
+.TP
+1)
+Load and execute
+.I boot
+by powering up, or rebooting, the machine and selecting
+the V7/x86 partition, where applicable.
+.TP
+2)
+When the prompt is given, type
+.br
+	hd(0,0)unix
+.br
+or
+.br
+	fd(0,0)unix
+.br
+depending on whether you are loading from hard drive
+or from the floppy drive, respectively.
+The first 0 indicates the physical unit number;
+the second indicates
+the block number of the beginning of the logical file
+system to be searched (see below).
+The block number may be omitted, if zero.
+.PP
+When the system is running, it types a `#' prompt.
+After any file system checks have been performed,
+a multi-user system is brought up by typing an EOT
+(control-d)
+in response to the `#' prompt.
+.PP
+.B Device specifications.
+A device specification has the following form:
+.IP " "
+device(unit,offset)
+.LP
+where
+.I device
+is the type of the device to be searched,
+.I unit
+is the unit number of the device,
+and 
+.I offset
+is the block offset of the file system on the device.
+.I Device
+is one of the following
+.br
+.nf
+	hd	hard drive
+	fd	floppy drive
+.fi
+For example, the specification
+.IP " "
+hd(1,7000)
+.LP
+indicates a hard drive, unit 1, and the file system found
+starting at block 7000.
+.SH FILES
+/unix \- system code
+.br
+/usr/boot/pcuboot \- copy of primary bootstrap
+.br
+/boot \- second stage bootstrap
+.SH "SEE ALSO"
+init(8)

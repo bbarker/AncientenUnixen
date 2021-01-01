@@ -1,0 +1,70 @@
+.\" UNIX V7 source code: see /COPYRIGHT or www.tuhs.org for details.
+.\" Changes: Copyright (c) 2007 Robert Nordier. All rights reserved.
+.TH MKCONF 1M
+.SH NAME
+mkconf \- generate configuration tables
+.SH SYNOPSIS
+mkconf
+.SH DESCRIPTION
+.I Mkconf
+examines a machine configuration table on its
+standard input.
+Its output is the file
+.I c.c
+which contains initialized
+block and character device switch tables.
+.PP
+Input to
+.I mkconf
+is a sequence of lines.
+The following describe devices on the machine:
+.PP
+.RS 5
+.nf
+.DS
+cd	(ATAPI cdrom drive)
+fd	(floppy drive)
+hd	(ATA hard drive)
+md	(memory disk)
+sr	(serial port)
+.RE
+.fi
+.PP
+The following lines are also accepted.
+.TP 5
+.BI "root " "dev minor"
+The specified block device (e.g.
+.BR hd )
+is used for the root.
+.I minor
+is a decimal number giving the minor device.
+This line must appear exactly once.
+.TP 5
+.BI "swap " "dev minor"
+The specified block device is used for swapping.
+If not given the root is used.
+.TP 5
+.BI "pipe " "dev minor"
+The specified block device
+is used to store pipes.
+If not given the root is used.
+.TP 5
+.BI "swplo " number
+.TP 5
+.BI "nswap " number
+Sets the origin (block number) and size of the area used for
+swapping.
+By default, the not very useful numbers
+4000 and 872.
+.TP 5
+.B pack
+Include the packet driver.
+By default it is left out.
+.TP 5
+.B mpx
+Include the multiplexor driver.
+By default it is left out.
+.SH FILES
+c.c	output files
+.SH SEE ALSO
+`Setting up Unix', in Volume 2.

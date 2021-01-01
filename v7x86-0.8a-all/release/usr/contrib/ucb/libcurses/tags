@@ -1,0 +1,92 @@
+CTRL	cr_ex.h	?^# define	CTRL(c)	('c' & 037)$?
+VOID	curses.h	?^# define	VOID(x)	(__void__ = (int) (x))$?
+_putchar	cr_put.c	?^_putchar(c)$?
+_puts	curses.h	?^# define	_puts(s)	tputs(s, 0, _putchar);$?
+_sprintw	printw.c	?^_sprintw(win, fmt, args)$?
+_sscans	scanw.c	?^_sscans(win, fmt, args)$?
+addch	curses.h	?^# define	addch(ch)	VOID(waddch(stdscr, ch))$?
+addstr	curses.h	?^# define	addstr(str)	VOID(waddstr(stdscr, str))$?
+box	box.c	?^box(win, vert, hor)$?
+clear	curses.h	?^# define	clear()		VOID(wclear(stdscr))$?
+clearok	curses.h	?^#define	clearok(win,bf)	 (win->_clear = bf)$?
+clrtobot	curses.h	?^# define	clrtobot()	VOID(wclrtobot(stdscr))$?
+clrtoeol	curses.h	?^# define	clrtoeol()	VOID(wclrtoeol(stdscr))$?
+crmode	curses.h	?^#define crmode() (_tty.sg_flags |= CBREAK, _rawmod?
+deleteln	curses.h	?^# define	deleteln()	VOID(wdeleteln(stdscr))$?
+delwin	delwin.c	?^delwin(win)$?
+echo	curses.h	?^#define echo()	 (_tty.sg_flags |= ECHO, _echoit = ?
+endwin	endwin.c	?^endwin()$?
+erase	curses.h	?^# define	erase()		VOID(werase(stdscr))$?
+fgoto	cr_put.c	?^fgoto() {$?
+getch	curses.h	?^# define	getch()		VOID(wgetch(stdscr))$?
+getstr	curses.h	?^# define	getstr(str)	VOID(wgetstr(stdscr, str))$?
+gettmode	cr_tty.c	?^gettmode() {$?
+getyx	curses.h	?^#define	getyx(win,y,x)	 y = win->_cury, x = win->_?
+inch	curses.h	?^# define	inch()		VOID(winch(stdscr))$?
+initscr	initscr.c	?^initscr() {$?
+insertln	curses.h	?^# define	insertln()	VOID(winsertln(stdscr))$?
+leaveok	curses.h	?^#define	leaveok(win,bf)	 (win->_leave = bf)$?
+longname	longname.c	?^longname(bp, def)$?
+makech	refresh.c	?^makech(win, wy)$?
+makenew	newwin.c	?^makenew(num_lines, num_cols, begy, begx)$?
+max	overlay.c	?^# define	max(a,b)	(a < b ? a : b)$?
+min	overlay.c	?^# define	min(a,b)	(a < b ? a : b)$?
+move	curses.h	?^# define	move(y, x)	VOID(wmove(stdscr, y, x))$?
+mvaddch	curses.h	?^#define	mvaddch(y,x,ch)		mvwaddch(stdscr,y,x,ch)$?
+mvaddstr	curses.h	?^#define	mvaddstr(y,x,str)	mvwaddstr(stdscr,y,x,str?
+mvcur	cr_put.c	?^mvcur(ly, lx, y, x)$?
+mvgetch	curses.h	?^#define	mvgetch(y,x)		mvwgetch(stdscr,y,x)$?
+mvgetstr	curses.h	?^#define	mvgetstr(y,x)		mvwgetstr(stdscr,y,x)$?
+mvinch	curses.h	?^#define	mvinch(y,x)		mvwinch(win,y,x)$?
+mvprintw	mvprintw.c	?^mvprintw(y, x, fmt, args)$?
+mvscanw	mvscanw.c	?^mvscanw(y, x, fmt, args)$?
+mvwaddch	curses.h	?^#define	mvwaddch(win,y,x,ch)	VOID(wmove(win,y,x)==?
+mvwaddstr	curses.h	?^#define	mvwaddstr(win,y,x,str)	VOID(wmove(win,y,x)?
+mvwgetch	curses.h	?^#define	mvwgetch(win,y,x)	VOID(wmove(win,y,x)==ERR?
+mvwgetstr	curses.h	?^#define	mvwgetstr(win,y,x)	VOID(wmove(win,y,x)==ER?
+mvwin	mvwin.c	?^mvwin(win, by, bx)$?
+mvwinch	curses.h	?^#define	mvwinch(win,y,x)	VOID(wmove(win,y,x) == ER?
+mvwprintw	mvprintw.c	?^mvwprintw(win, y, x, fmt, args)$?
+mvwscanw	mvscanw.c	?^mvwscanw(win, y, x, fmt, args)$?
+newwin	newwin.c	?^newwin(num_lines, num_cols, begy, begx)$?
+nl	curses.h	?^#define nl()	 (_tty.sg_flags |= CRMOD, pfast = TRU?
+nocrmode	curses.h	?^#define nocrmode() (_tty.sg_flags &= ~CBREAK,_rawm?
+noecho	curses.h	?^#define noecho() (_tty.sg_flags &= ~ECHO, _echoit ?
+nonl	curses.h	?^#define nonl()	 (_tty.sg_flags &= ~CRMOD, pfast = ?
+noraw	curses.h	?^#define noraw()	 (_tty.sg_flags &= ~RAW, _rawmode ?
+overlay	overlay.c	?^overlay(win1, win2)$?
+overwrite	overwrite.c	?^overwrite(win1, win2)$?
+plod	cr_put.c	?^plod(cnt)$?
+plodput	cr_put.c	?^plodput(c)$?
+printw	printw.c	?^printw(fmt, args)$?
+putpad	cr_put.c	?^putpad(cp)$?
+raw	curses.h	?^#define raw()	 (_tty.sg_flags |= RAW, _rawmode = T?
+refresh	curses.h	?^# define	refresh()	VOID(wrefresh(stdscr))$?
+resetty	curses.h	?^#define	resetty()	(_tty.sg_flags = _res_flg, stty(?
+savetty	curses.h	?^#define	savetty()	(gtty(_tty_ch, &_tty), _res_flg ?
+scanw	scanw.c	?^scanw(fmt, args)$?
+scroll	scroll.c	?^scroll(win)$?
+scrollok	curses.h	?^#define	scrollok(win,bf) (win->_scroll = bf)$?
+setterm	cr_tty.c	?^setterm(type)$?
+standend	curses.h	?^# define	standend()	VOID(wstandend(stdscr))$?
+standout	curses.h	?^# define	standout()	VOID(wstandout(stdscr))$?
+subwin	newwin.c	?^subwin(orig, num_lines, num_cols, begy, begx)$?
+touchwin	touchwin.c	?^touchwin(win)$?
+waddch	addch.c	?^waddch(win, c)$?
+waddstr	addstr.c	?^waddstr(win,str)$?
+wclear	clear.c	?^wclear(win)$?
+wclrtobot	clrtobot.c	?^wclrtobot(win)$?
+wclrtoeol	clrtoeol.c	?^wclrtoeol(win)$?
+wdeleteln	deleteln.c	?^wdeleteln(win)$?
+werase	erase.c	?^werase(win)$?
+wgetch	getch.c	?^wgetch(win)$?
+wgetstr	getstr.c	?^wgetstr(win,str)$?
+winch	curses.h	?^#define	winch(win)	 (win->_y[win->_cury][win->_cur?
+winsertln	insertln.c	?^winsertln(win)$?
+wmove	move.c	?^wmove(win, y, x)$?
+wprintw	printw.c	?^wprintw(win, fmt, args)$?
+wrefresh	refresh.c	?^wrefresh(win)$?
+wscanw	scanw.c	?^wscanw(win, fmt, args)$?
+wstandend	standout.c	?^wstandend(win)$?
+wstandout	standout.c	?^wstandout(win)$?
+zap	cr_tty.c	?^zap() {$?

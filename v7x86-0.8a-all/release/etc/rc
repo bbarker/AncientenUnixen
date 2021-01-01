@@ -1,0 +1,14 @@
+PATH=/bin:/usr/bin
+echo "Refer to the file COPYRIGHT either in the root directory
+or at www.nordier.com/v7x86 for the copyright status of
+the components of this distribution." >/dev/console
+rm /etc/mtab
+cat /dev/null >/etc/utmp
+/etc/mount /dev/hd0e /usr
+rm -f /usr/spool/lpd/lock
+: /etc/accton /usr/adm/acct
+rm -f /usr/tmp/*
+rm -f /tmp/*
+/etc/update
+date >/dev/console
+/etc/cron

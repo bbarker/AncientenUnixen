@@ -1,0 +1,15 @@
+.\" V7/x86 source code: see www.nordier.com/v7x86 for details.
+.\" Copyright (c) 2007 Robert Nordier.  All rights reserved.
+.TH CD 4 
+.SH NAME
+cd \- ATAPI CDROM drive
+.SH DESCRIPTION
+This driver provides access to ATAPI CDROM drives.
+.PP
+CDROM blocks are 2048 bytes in size; consequently all access
+must bypass the system's normal buffering mechanism.
+Read counts and seek offsets should be a multiple of 2048 bytes.
+.SH FILES
+/dev/cd?
+.SH "SEE ALSO"
+cdcat(1)

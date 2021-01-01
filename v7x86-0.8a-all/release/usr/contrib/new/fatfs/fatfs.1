@@ -1,0 +1,29 @@
+.\" V7/x86 source code: see www.nordier.com/v7x86 for details.
+.\" Copyright (c) 2006 Robert Nordier.  All rights reserved.
+.TH FATDIR 1 
+.SH NAME
+fatdir, fatget, fatput \- FAT filesystem access
+.SH SYNOPSIS
+.B fatdir
+special
+[ fat_file ]
+.PP
+.B fatget
+special fat_file
+[ file ]
+.PP
+.B fatput
+special file
+[ fat_file ]
+.SH DESCRIPTION
+The
+.IR fatdir ,
+.I fatget
+and
+.I fatput 
+commands provide some basic support for FAT ("MS-DOS")
+filesystem access.
+.SH BUGS
+Directories are not supported.
+.PP
+There is no VFAT (long filename) support.

@@ -1,0 +1,9 @@
+hd
+fd
+md
+cd
+sr
+root md 0
+swap md 0
+swplo 2880
+nswap 32000

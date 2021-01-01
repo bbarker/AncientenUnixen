@@ -1,0 +1,90 @@
+README: V7/x86
+
+
+WHAT IT IS
+
+V7/x86 is a recent port of UNIX Version 7 to the x86 (IA-32) based
+PC.  Version 7 was the last general distribution (around 1979) to
+come from the Research group at Bell Laboratories, the original
+home of UNIX.
+
+The port was done by Robert Nordier mostly around 1999 when "Ancient
+UNIX" source code licenses first became available, and was revised
+for release, with some enhancements, during 2006-7.
+
+
+HOW TO GET IT
+
+The V7/x86 home page is at http://www.nordier.com/v7x86/.
+
+You can download the latest V7/x86 release from the web site.
+Each distribution is primarily available as a small ISO 9660 CD
+image, though the main component files are also available
+separately:
+
+    v7x86-9.9x.iso*   Complete distribution image
+
+    INSTALL           Installation instructions
+    README            This file
+    RELNOTES          Release notes
+    boot.img          CD/floppy boot image
+    v7x86-9.9x.tar*   Archive containing source and binary files
+
+    * Where ``9.9x'' stands for a specific version number, for
+      example ``0.8a'' as in ``v7x86-0.8a.iso''.
+
+For a new installation, the CD image is the file to get, provided
+you have the facilities for burning a CD: it contains all the other
+files.  To upgrade an existing system, the tarball may be all you
+need.
+
+There is also a demo file, v7x86-demo.img (not necessarily updated
+with every release), that contains a subset of V7/x86 suitable for
+running under PC emulators Bochs and QEMU.  This is primarily
+intended for someone who wants to look at V7/x86 without actually
+installing it.
+
+Large files are usually made available compressed with bzip2, and
+will need to be decompressed with bunzip2 before use.
+
+
+INSTALLING
+
+The file INSTALL, available in the root directory of the CD image,
+as well as on the web site, contains hardware requirements and
+installation instructions.
+
+
+DOCUMENTATION
+
+UNIX Version 7 has extensive documentation available in /usr/man
+and /usr/doc.  In general, man pages have been updated to reflect
+changes due to the V7/x86 port, but papers and articles in /usr/doc
+are mostly attributable to specific individuals and these have not
+been altered.
+
+The document "Using V7/x86: A Brief Introduction" available at
+http://www.nordier.com/v7x86/doc/v7x86intro.pdf is recommended
+for those new to V7/x86.
+
+
+LEGAL
+
+Please refer to the file COPYRIGHT, available in the root directory
+of the CD image, and of the V7/x86 file hierarchy, as well as on
+the web site, for details of the copyright status of various
+components of the distribution.  The file /usr/release/LICENSE in
+the installed V7/x86 tree also contains relevant information.
+
+UNIX is a registered trademark of The Open Group in the US and
+other countries.  V7/x86 is a trademark of Robert Nordier.
+
+
+FEEDBACK
+
+Comments, reports of success or failure, and/or bug reports are
+welcome and may be sent to v7x86@nordier.com.
+
+
+Robert Nordier
+www.nordier.com

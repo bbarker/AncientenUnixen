@@ -1,0 +1,14 @@
+/|adm3|/;.,/^[^	]/-m0
+/|h19|/;.,/^[^	]/-m0
+/|mime|/;.,/^[^	]/-m0
+/|c100|/;.,/^[^	]/-m0
+/|c100rv|/;.,/^[^	]/-m0
+/|2621|/;.,/^[^	]/-m0
+/|adm3a|/;.,/^[^	]/-m0
+/|cons|/;.,/^[^	]/-m0
+1,/^#  ---/g/^s/.m0
+0a
+# Do not edit: this file is created automatically from termcap.src.
+.
+w termcap
+q

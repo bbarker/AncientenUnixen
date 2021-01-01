@@ -1,0 +1,47 @@
+.\" V7/x86 source code: see www.nordier.com/v7x86 for details.
+.\" Copyright (c) 2007 Robert Nordier.  All rights reserved.
+.TH SC 4 
+.SH NAME
+sc \- system console
+.SH DESCRIPTION
+The
+.I sc
+driver implements a virtual terminal interface supplying access
+to the PC screen and keyboard.
+.PP
+Escape code recognised by the driver are:
+.PP
+.nf
+	@	 reset 
+	A	 cursor up 
+	B	 cursor down 
+	C	 cursor right 
+	D	 cursor left 
+	E	 clear screen 
+	F	 alt char set start 
+	G	 alt char set end 
+	H	 cursor home 
+	I	 back tab 
+	J	 clear to end of display 
+	K	 clear to end of line 
+	L	 insert line 
+	M	 delete line 
+	N	 delete character 
+	O	 insert character 
+	P	 scroll forward 
+	Q	 scroll reverse 
+	R	 reserved 
+	S	 standout start 
+	T	 standout end 
+	U	 underscore start 
+	V	 underscore end 
+	W	 termcap mode start 
+	X	 termcap mode end 
+	Yrc	 cursor motion
+	Zx	 special mode
+.fi
+.PP
+where `r' (0-based row) and `c' (0-based column) and `x' are each
+offset by a blank character (040).
+.SH FILES
+/dev/console
