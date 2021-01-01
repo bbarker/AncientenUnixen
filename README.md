@@ -34,8 +34,14 @@ licences.
 
 ### RISC-V
 
-- [xv6-rust](xv6-rust) **[x86, Rust]**
-- [core-os-riscv](core-os-riscv) **[RISC-V, Rust]** This project is originally based on "The Adventures of OS: Making a RISC-V Operating System using Rust", and is now being made to have an xv6-like structure. [Crate docs](https://www.skyzh.dev/core-os-riscv/kernel/).
+- [xv6-rust](xv6-rust) **[x86, Rust]** A faithful port of the 32-bit
+  xv6 learner's operating system to the Rust programming language,
+  from [Repo URL](https://github.com/connorkuehl/xv6-rust).
+- [core-os-riscv](core-os-riscv) **[RISC-V, Rust]** This project is
+  originally based on "The Adventures of OS: Making a RISC-V Operating
+  System using Rust", and is now being made to have an xv6-like
+  structure. [Crate
+  docs](https://www.skyzh.dev/core-os-riscv/kernel/).
 
 ### Other
 
