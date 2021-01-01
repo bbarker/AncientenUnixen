@@ -10,7 +10,17 @@ licences.
 
 ### Truly Ancient C
 
-- [v6](v6) and also [Lions Commentary(source+PDF)](LionsCommentary)
+- [v6](v6) and also [Lions Commentary(source+PDF)](LionsCommentary) and also [doc version](v6doc); from [here](https://minnie.tuhs.org/Archive/Distributions/Research/Dennis_v6/) by way of [The Unix Tree](https://minnie.tuhs.org/cgi-bin/utree.pl).
+- [v7](v7) from
+  [here](https://minnie.tuhs.org/cgi-bin/utree.pl?file=V7) by way of
+  [The Unix Tree](https://minnie.tuhs.org/cgi-bin/utree.pl): The
+  Seventh Edition of Unix was released by Bell Laboratories in January
+  1979, ~four years after Sixth Edition. The structure of the kernel
+  was significantly altered, with many bugs removed and features
+  added: larger filesystems, less restrictions on user accounts,
+  improved portability. At the user level, new library functions were
+  added (such as the Standard I/O library), and many new applications
+  arrived: awk, f77, lex, lint, m4, make, sed, tar, uucp.
 
 ### Possibly (semi-)ancient C
 
@@ -29,3 +39,7 @@ These will mostly be documentation related.
 
 1. [v7x86-0.8a-all/README.txt](v7x86-0.8a-all/README.txt) has some
 text added from Robert Nordier's [web page](https://www.nordier.com/).
+
+## Other resources
+
+1. [The Unix Tree](https://minnie.tuhs.org/cgi-bin/utree.pl) Contains sources for many editions of Ancient UNIX.
