@@ -1,0 +1,8 @@
+/target
+**/*.rs.bk
+kernel.img
+hdd.img
+__pycache__/
+kernel.elf
+.idea/
+*.d

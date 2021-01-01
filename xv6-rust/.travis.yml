@@ -1,0 +1,16 @@
+sudo: required
+
+language: rust
+rust:
+  - nightly
+
+before_install:
+  - sudo apt update && sudo apt install gcc qemu -y
+  - cargo install cargo-xbuild
+  - rustup component add rust-src
+
+install:
+  - make
+
+script:
+  - ./test.sh

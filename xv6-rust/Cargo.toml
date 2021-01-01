@@ -1,0 +1,22 @@
+[package]
+name = "xv6"
+version = "0.1.0"
+authors = ["TODO"]
+
+[lib]
+crate-type = ["staticlib"]
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+
+[dependencies]
+bitfield = "0.13.*"
+spin = "0.4.*"
+x86 = "0.11.*"
+
+[dependencies.lazy_static]
+version = "1.1.*"
+features = ["spin_no_std"]

@@ -1,0 +1,49 @@
+Example for using testuidgid. This testing uses the console control-p sequence. Note that user enters a
+carriage return after each control-p to space the output. This accounts for the triple prompt at the end
+of the test.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+$ testuidgid
+Current UID is: 0
+Setting UID to 100
+Current UID is: 100
+
+PID     Name         UID        GID     PPID    Elapsed CPU     State   Size     PCs
+1       init         0          0       1       5.94    0.03    sleep   12288    801052df 80104f85 8010725a 80106457 80107785 80107580
+2       sh           0          0       1       5.90    0.04    sleep   16384    801052df 80104f85 8010725a 80106457 80107785 80107580
+3       testuidgid   100        0       2       1.11    0.01    sleep   16384    801052df 80107338 80106457 80107785 80107580
+
+Current GID is: 0
+Setting GID to 200
+Current GID is: 200
+
+PID     Name         UID        GID     PPID    Elapsed CPU     State   Size     PCs
+1       init         0          0       1       10.60   0.03    sleep   12288    801052df 80104f85 8010725a 80106457 80107785 80107580
+2       sh           0          0       1       10.56   0.04    sleep   16384    801052df 80104f85 8010725a 80106457 80107785 80107580
+3       testuidgid   100        200     2       5.77    0.01    sleep   16384    801052df 80107338 80106457 80107785 80107580
+
+My parent process is: 2
+Setting UID to 111 and GID to 111 before fork(). Value should be inherited
+Before fork(), UID = 111, GID = 111
+Child: UID is: 111, GID is: 111
+
+PID     Name         UID        GID     PPID    Elapsed CPU     State   Size     PCs
+1       init         0          0       1       16.24   0.03    sleep   12288    801052df 80104f85 8010725a 80106457 80107785 80107580
+2       sh           0          0       1       16.20   0.04    sleep   16384    801052df 80104f85 8010725a 80106457 80107785 80107580
+3       testuidgid   111        111     2       11.41   0.03    sleep   16384    801052df 80107338 80106457 80107785 80107580
+4       testuidgid   111        111     3       1.37    0.00    sleep   16384    801052df 80107338 80106457 80107785 80107580
+
+Setting UID to 32800. This test should FAIL
+SUCCESS! The setuid sytem call indicated failure
+Setting GID to 32800. This test should FAIL
+SUCCESS! The setgid sytem call indicated failure
+Setting UID to -1. This test should FAIL
+SUCCESS! The setgid sytem call indicated failure
+Done!
+$ zombie!
+$ $ $
+$
+PID     Name         UID        GID     PPID    Elapsed CPU     State   Size     PCs
+1       init         0          0       1       26.66   0.04    sleep   12288    801052df 80104f85 8010725a 80106457 80107785 80107580
+2       sh           0          0       1       26.62   0.08    sleep   16384    801052df 80100aa2 80101fdc 801012a2 80106617 80106457 80107785 80107580
+

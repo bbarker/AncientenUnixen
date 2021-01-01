@@ -1,0 +1,21 @@
+dist: bionic
+language: rust
+rust:
+- nightly
+cache: cargo
+before_script:
+- cargo install cargo-xbuild cargo-binutils
+- rustup component add rust-src llvm-tools-preview rustfmt rls rust-analysis
+- rustup target add riscv64gc-unknown-none-elf
+script:
+- make ci
+- make docs
+- cp utils/index.html target/riscv64gc-unknown-none-elf/doc
+deploy:
+  provider: pages
+  skip_cleanup: true
+  keep_history: false
+  on:
+    branch: master
+  local_dir: target/riscv64gc-unknown-none-elf/doc
+  github_token: $GITHUB_TOKEN

@@ -1,0 +1,125 @@
+Changes made to xv6 to facilitate projects at Portland State University.
+
+1. Access to the ''ticks'' global has been made atomic. This was
+necessary to avoid deadlock with regards to tickslock/ptable.lock,
+particularly for the sleep() routine in proc.c. Since Intel has atomic
+guarantees and GNU gcc has a suitable alignment syntax, we are able to
+do away with the tickslock everywhere. Note that a special check had
+to be put into sleep() in proc.c to handle the fact that sys_sleep()
+was changed to pass a NULL lock.
+
+The following changes were required.
+
+1a. The definition for ticks was made 32-bit aligned in trap.c.
+
+// set alignment to 32-bit for ticks. See Intel® 64 and IA-32 
+// Architectures Software Developer’s Manual, Vol 3A, 8.1.1 Guaranteed
+// Atomic Operations.  uint ticks __attribute__ ((aligned (4)));
+
+1b. The lcok was removed in the code for handling the timer interrupt
+in trap.c
+
+  switch(tf->trapno){
+  case T_IRQ0 + IRQ_TIMER:
+    if(cpu->id == 0){
+      acquire(&tickslock);
+      ticks++;
+      release(&tickslock);
+      wakeup(&ticks);
+    }
+
+changed to:
+
+  switch(tf->trapno){
+  case T_IRQ0 + IRQ_TIMER:
+    if(cpu->id == 0){
+      atom_inc((int *)&ticks);
+      wakeup(&ticks);
+    }
+
+1c. A new routine was added to x86.h to use the Intel atomic increment
+instruction.
+
+// atom_inc() added to simplify handling of ticks global
+static inline void
+atom_inc(volatile int *num)
+{
+  asm volatile ( "lock incl %0" : "=m" (*num));
+}
+
+Wrappers for several other atomic Intel instructions were added for
+completeness.
+
+1d. Removed tickslock acquisition/free in sys_uptime (sysproc.c) since
+reading is now atomic.
+
+1e. All uses of tickslock (e.g., sys_sleep()) have been removed. This
+necessitated surgery on sleep() in pro.c. Calling sleep with a NULL lock
+is now legal but is limited to sys_sleep(). CAUTION
+
+2. A new feature was added to the scheduler to turn off the CPU for
+the remainder of the time slice when no work is in the ready queue.
+proc.c in routine scheduler(). The hlt() routine is in x86.h.
+
+  int idle;  // for checking if processor is idle
+
+...
+
+    idle = 1;  // assume idle unless we schedule a process
+
+...
+
+      idle = 0;  // not idle this timeslice
+
+...
+
+    release(&ptable.lock);
+    // if idle, wait for next interrupt
+    if (idle) {
+      sti();
+      hlt();
+    }
+
+3. A new user command, halt, was created to shutdown QEMU.  This is
+distinct from the hlt() function. See sys_halt() in sysproc.c.
+Function prototype added to user.h, usys.S and syscall.{hc} updated.
+
+4. A general cleanup of the Makefile to be less confusing and more
+specific to PSU.
+
+5. The array states[] in proc.c was moved out of procdump() to be
+file global. 
+
+6. Added a define in types.h to adjust the ticks per second (TPS).  This
+is useful when implementing MLFQ scheduling. See timer.c (uniprocessor)
+and lapic.c (SMP) for use.
+
+7. When TPS is other than the MIT default, we can modify trap.c to invoke
+the scheduler (via yield()) at less than the TPS frequency. This makes
+MLFQ more realistic.
+
+8. Updated atoi() in ulib.c to handle negative numbers.
+
+9. Added atoo() in ulib.c to handle ascii to octal conversion for
+project 5. Function prototype added to user.h
+
+10. Changed the procstate enum in proc.h. The purpose is to help catch
+poor programming that relies on the UNUSED state just happening to be
+0. This required that we remove the magic number in procdump() in proc.c.
+
+11. Several test suites have been added; more to come. These exist
+to assist students in testing assignments. See project descriptions
+as appropriate
+
+12. Changed all references to pid, nextpid to be uint as they should be.
+
+
+TODO
+
+1. Consider updating the include files to use modern techniques to catch
+and prevent the same include file being included multiple times. This
+will help to remove confusion from project 5.
+
+2. Move PSU specific defines into their own include file (pdx.h?). 
+
+
